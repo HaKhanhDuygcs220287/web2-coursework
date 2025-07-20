@@ -41,12 +41,12 @@ export default {
     };
   },
   async created() {
-    const res = await fetch('http://localhost:3000/api/vocab');
+    const res = await fetch('https://web2-coursework.onrender.com/api/vocab');
     this.words = await res.json();
   },
   methods: {
     async deleteWord(id) {
-      await fetch(`http://localhost:3000/api/vocab/${id}`, {
+      await fetch(`https://web2-coursework.onrender.com/api/vocab/${id}`, {
         method: 'DELETE'
       });
       this.words = this.words.filter(word => word._id !== id);
@@ -54,6 +54,7 @@ export default {
   }
 };
 </script>
+
 
 <style scoped>
 .all-words-container {

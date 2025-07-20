@@ -20,7 +20,7 @@ export default {
     };
   },
   async mounted() {
-    const res = await fetch(`http://localhost:3000/api/vocab/${this.$route.params.id}`);
+    const res = await fetch(`https://web2-coursework.onrender.com/api/vocab/${this.$route.params.id}`);
     this.word = await res.json();
   }
 };

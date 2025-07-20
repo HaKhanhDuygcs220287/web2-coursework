@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API = 'http://localhost:3000/api'; // Điều chỉnh nếu server bạn dùng port khác
+const API = 'https://web2-coursework.onrender.com/api'; // ✅ Đã cập nhật URL sản phẩm
 
 export default {
   // Lấy toàn bộ từ vựng

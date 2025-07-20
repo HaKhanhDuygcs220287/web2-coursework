@@ -33,7 +33,7 @@ export default {
   },
   methods: {
     async getWords() {
-      const res = await fetch('http://localhost:3000/api/vocab');
+      const res = await fetch('https://web2-coursework.onrender.com/api/vocab');
       this.words = await res.json();
     },
     async addWord() {
@@ -42,7 +42,7 @@ export default {
         definition: 'This is a test',
         language: 'English'
       };
-      await fetch('http://localhost:3000/api/vocab', {
+      await fetch('https://web2-coursework.onrender.com/api/vocab', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(newWord)
@@ -56,7 +56,7 @@ export default {
         ...first,
         definition: 'Updated definition via PUT'
       };
-      await fetch(`http://localhost:3000/api/vocab/${first._id}`, {
+      await fetch(`https://web2-coursework.onrender.com/api/vocab/${first._id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(updated)
@@ -66,7 +66,7 @@ export default {
     async deleteLastWord() {
       if (!this.words.length) return;
       const last = this.words[this.words.length - 1];
-      await fetch(`http://localhost:3000/api/vocab/${last._id}`, {
+      await fetch(`https://web2-coursework.onrender.com/api/vocab/${last._id}`, {
         method: 'DELETE'
       });
       this.getWords();

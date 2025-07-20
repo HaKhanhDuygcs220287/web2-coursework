@@ -1,11 +1,12 @@
 <template>
   <div class="home-container">
+    <!-- Thanh menu chính -->
     <div class="nav-ellipse-group">
       <router-link to="/" class="ellipse-btn">Home</router-link>
       <router-link to="/words" class="ellipse-btn">All Words</router-link>
       <router-link to="/words/new" class="ellipse-btn">Add New</router-link>
       <router-link to="/test-api" class="ellipse-btn">API Test</router-link>
-      <router-link to="/About" class="ellipse-btn">About</router-link>
+      <router-link to="/about" class="ellipse-btn">About</router-link>
     </div>
   </div>
 </template>
@@ -22,7 +23,7 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(to right, #d3cce3, #e9e4f0); /* màu hồng khói */
+  background: linear-gradient(to right, #d3cce3, #e9e4f0); /* nền màu hồng khói */
 }
 
 .nav-ellipse-group {
@@ -31,6 +32,7 @@ export default {
   justify-content: center;
   align-items: center;
   padding: 1rem;
+  flex-wrap: wrap;
 }
 
 .ellipse-btn {

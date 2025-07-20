@@ -49,11 +49,11 @@ export default {
   },
   methods: {
     async fetchWord() {
-      const res = await fetch(`http://localhost:3000/api/vocab/${this.$route.params.id}`);
+      const res = await fetch(`https://web2-coursework.onrender.com/api/vocab/${this.$route.params.id}`);
       this.word = await res.json();
     },
     async handleSubmit() {
-      await fetch(`http://localhost:3000/api/vocab/${this.$route.params.id}`, {
+      await fetch(`https://web2-coursework.onrender.com/api/vocab/${this.$route.params.id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(this.word)

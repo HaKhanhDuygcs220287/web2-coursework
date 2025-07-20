@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 
 
 const vocabRoutes = require('./routes/vocabRoutes');
-
+require('dotenv').config();
 const app = express();
 const PORT = 3000;
 
