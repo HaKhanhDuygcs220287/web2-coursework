@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: web2-coursework
+    env: node
+    buildCommand: npm install
+    startCommand: node server.js
+    region: singapore
+    plan: free
+    envVars:
+      - key: MONGO_URI
+        value: mongodb+srv://mevnuser:12345@mevn-app.8xok7eo.mongodb.net/vocabdb?retryWrites=true&w=majority&appName=MEVN-App

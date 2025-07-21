@@ -1,68 +1,38 @@
-import axios from 'axios';
+// server.js
+const express = require('express');
+const mongoose = require('mongoose');
+const cors = require('cors');
+const bodyParser = require('body-parser');
 
-const API = 'https://web2-coursework.onrender.com/api'; // ✅ Đã cập nhật URL sản phẩm
+const vocabRoutes = require('./routes/vocabRoutes');
+require('dotenv').config();
+const app = express();
+const PORT = process.env.PORT || 3000; // ✅ Render sẽ cung cấp PORT env
 
-export default {
-  // Lấy toàn bộ từ vựng
-  async getWords() {
-    try {
-      const response = await axios.get(`${API}/vocab`);
-      return response.data;
-    } catch (error) {
-      console.error('Error fetching words:', error);
-      throw error; // Để có thể xử lý ở nơi gọi
-    }
-  },
+// Middleware
+app.use(cors());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
-  // Lấy từ vựng theo ID
-  async getWord(id) {
-    try {
-      const response = await axios.get(`${API}/vocab/${id}`);
-      return response.data;
-    } catch (error) {
-      console.error('Error fetching word:', error);
-      throw error;
-    }
-  },
+// MongoDB connection string (bảo mật hơn bằng biến môi trường)
+const MONGO_URI = process.env.MONGO_URI || 'mongodb+srv://mevnuser:12345@mevn-app.8xok7eo.mongodb.net/vocabdb?retryWrites=true&w=majority&appName=MEVN-App';
 
-  // Thêm từ vựng mới
-  async createWord(word) {
-    try {
-      const response = await axios.post(`${API}/vocab`, word);
-      return response.data;
-    } catch (error) {
-      console.error('Error creating word:', error);
-      throw error;
-    }
-  },
+mongoose.connect(MONGO_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+})
+.then(() => console.log('✅ Connected to MongoDB Atlas'))
+.catch((err) => console.error('❌ MongoDB connection error:', err.message));
 
-  // Cập nhật từ vựng
-  async updateWord(id, word) {
-    try {
-      const response = await axios.put(`${API}/vocab/${id}`, word);
-      return response.data;
-    } catch (error) {
-      console.error('Error updating word:', error);
-      throw error;
-    }
-  },
+// Routes
+app.use('/api/vocab', vocabRoutes);
 
-  // Xóa từ vựng
-  async deleteWord(id) {
-    try {
-      await axios.delete(`${API}/vocab/${id}`);
-    } catch (error) {
-      console.error('Error deleting word:', error);
-      throw error;
-    }
-  },
+// 404 fallback
+app.use((req, res) => {
+  res.status(404).json({ message: 'Route not found' });
+});
 
-  // Flash message (sử dụng Vue Flash Message)
-  flash(message) {
-    if (window && window.Vue && window.Vue.prototype.$flashMessage) {
-      window.Vue.prototype.$flashMessage.success({ message, time: 3000 });
-    } else {
-      console.warn('Flash message system is not initialized.');
-    }
-  }
-};
+// Start server
+app.listen(PORT, () => {
+  console.log(`🚀 Server running on port ${PORT}`);
+});
