@@ -26,15 +26,24 @@ exports.create_a_word = (req, res) => {
   });
 };
 
-// PUT
+// ✅ PUT - ĐÃ SỬA để hỗ trợ cả field name/definition
 exports.update_a_word = (req, res) => {
+  // Gộp các field name → chinese, definition → english
+  const updateData = {
+    chinese: req.body.chinese || req.body.name,
+    english: req.body.english || req.body.definition,
+    language: req.body.language
+  };
+
+  console.log('Updating word with data:', updateData);
+
   Vocab.findOneAndUpdate(
     { _id: req.params.wordId },
-    req.body,
+    updateData,
     { new: true },
     (err, word) => {
       if (err) res.send(err);
-      res.json(word);
+      else res.json(word);
     }
   );
 };

@@ -4,13 +4,13 @@
 
     <form @submit.prevent="handleSubmit">
       <div class="field">
-        <label for="chinese">Name:</label>
-        <input v-model="word.chinese" id="chinese" type="text" required />
+        <label for="word">Name:</label>
+        <input v-model="word.word" id="word" type="text" required />
       </div>
 
       <div class="field">
-        <label for="english">Definition:</label>
-        <input v-model="word.english" id="english" type="text" required />
+        <label for="definition">Definition:</label>
+        <input v-model="word.definition" id="definition" type="text" required />
       </div>
 
       <div class="field">
@@ -38,8 +38,8 @@ export default {
   data() {
     return {
       word: {
-        chinese: '',
-        english: '',
+        word: '',
+        definition: '',
         language: ''
       }
     };
@@ -49,18 +49,33 @@ export default {
   },
   methods: {
     async fetchWord() {
-      const res = await fetch(`https://web2-coursework.onrender.com/api/vocab/${this.$route.params.id}`);
-      this.word = await res.json();
+      try {
+        const res = await fetch(`https://web2-coursework.onrender.com/api/vocab/${this.$route.params.id}`);
+        if (!res.ok) throw new Error('Failed to fetch');
+        const data = await res.json();
+        this.word = {
+          word: data.word || '',
+          definition: data.definition || '',
+          language: data.language || ''
+        };
+      } catch (err) {
+      
+      }
     },
     async handleSubmit() {
-      await fetch(`https://web2-coursework.onrender.com/api/vocab/${this.$route.params.id}`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(this.word)
-      });
-      this.$router.push('/words').catch(err => {
-        if (err.name !== 'NavigationDuplicated') throw err;
-      });
+      try {
+        await fetch(`https://web2-coursework.onrender.com/api/vocab/${this.$route.params.id}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(this.word)
+        });
+        this.$router.push('/words').catch(err => {
+          if (err.name !== 'NavigationDuplicated') throw err;
+        });
+      } catch (err) {
+        console.error('Error updating word:', err);
+        alert('Failed to update word.');
+      }
     }
   }
 };
