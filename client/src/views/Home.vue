@@ -2,7 +2,6 @@
   <div class="home-container">
     <!-- Thanh menu chính -->
     <div class="nav-ellipse-group">
-      <router-link to="/" class="ellipse-btn">Home</router-link>
       <router-link to="/words" class="ellipse-btn">All Words</router-link>
       <router-link to="/words/new" class="ellipse-btn">Add New</router-link>
       <router-link to="/test-api" class="ellipse-btn">API Test</router-link>

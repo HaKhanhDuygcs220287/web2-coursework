@@ -20,9 +20,8 @@ export default new Router({
     { path: '/words/new', name: 'new', component: New },
     { path: '/words/:id/edit', name: 'edit', component: Edit, props: true },
     { path: '/words/:id', name: 'show', component: Show, props: true },
-    { path: '*', redirect: '/' },
-    {path: '/test-api', name: 'TestApi', component: TestApi },
-    { path: '/about', component: About } 
-
+    { path: '/test-api', name: 'TestApi', component: TestApi },
+    { path: '/about', name: 'about', component: About },
+    { path: '*', redirect: '/' }
   ]
 });

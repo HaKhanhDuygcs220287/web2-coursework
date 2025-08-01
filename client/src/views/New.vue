@@ -46,18 +46,26 @@ export default {
   },
   methods: {
     async handleSubmit() {
-      await fetch('https://web2-coursework.onrender.com/api/vocab', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(this.word)
-      });
-      this.$router.push('/words');
+      try {
+        await fetch('https://web2-coursework.onrender.com/api/vocab', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(this.word)
+        });
+
+        // Kiểm tra route trước khi điều hướng
+        if (this.$route.path !== '/words') {
+          this.$router.push('/words');
+        }
+      } catch (error) {
+        console.error('Failed to add word:', error);
+      }
     }
   }
 };
 </script>
+
 <style scoped>
-/* Giữ nguyên style bạn đã viết */
 .add-word-container {
   padding: 2rem;
   background: linear-gradient(to right, #6a1b9a, #9b59b6);
